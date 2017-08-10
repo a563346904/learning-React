@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react核心-->
+    <script src="node_modules/react/dist/react.js"></script>
+    <!--引入 react-dom 库-->
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <!--引入 babel预编译库-->
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        #title {
+            width: 100%;
+            height: 45px;
+            background-color: #0095D5;
+        }
+
+        .text {
+            float: left;
+            color: white;
+            font-size: 15px;
+            padding: 12px;
+            cursor: pointer;
+        }
+        .text:hover{
+            background-color: #0085BB;
+        }
+
+
+        .text1 {
+            height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            float: left;
+            color: white;
+            margin-left: 40px;
+        }
+        .text10 {
+            float: right;
+            margin-right: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="title"></div>
+</body>
+<script type="text/babel">
+
+    var arr = ['编程','读书','Java教程','JavaScript教程','Python教程','Git教程','问答','赞助']
+
+
+    var oWrap = document.getElementById('title');
+    var res = [];
+    for (var i = 0;i<arr.length;i++){
+        res.push(<div className="text">{arr[i]}</div>)
+    }
+
+    const element = (
+        <div>
+            <div className="text1">廖雪峰的官方网站</div>
+            {res}
+            <div className="text text10">登录</div>
+        </div>
+    )
+
+
+
+//    console.log(element)
+
+    ReactDOM.render(
+        element,
+        oWrap
+    )
+
+
+</script>
+</html>

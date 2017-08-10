@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react核心-->
+    <script src="node_modules/react/dist/react.js"></script>
+    <!--引入 react-dom 库-->
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <!--引入 babel预编译库-->
+    <script src="node_modules/babel-standalone/babel.js"></script>
+</head>
+<body>
+<!--网页执行react所需要的依赖-->
+    <!--npm install --save react react-dom react-scripts-->
+    <!--npm install --save babel-standalone-->
+
+
+
+    <!-- 1.react -->
+    <!--核心库-->
+    <!-- 2.react-dom -->
+    <!--dom操作-->
+    <!-- 3.react-scripts -->
+    <!--编译 运行 打包 测试 -->
+
+
+<div id="example"></div>
+
+</body>
+<script type="text/babel">
+    //渲染ReactDOM 渲染
+    // 参数1.要渲染的内容
+    // 参数2.渲染位置
+    ReactDOM.render(
+        <h1>hello,word</h1>,
+        document.getElementById('example')
+
+    )
+
+</script>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react核心-->
+    <script src="node_modules/react/dist/react.js"></script>
+    <!--引入 react-dom 库-->
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <!--引入 babel预编译库-->
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <style type="text/css">
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        #title {
+            width: 100%;
+            height: 45px;
+            background-color: #0095D5;
+        }
+
+        .text1 {
+            height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            float: left;
+            color: white;
+            margin-left: 40px;
+        }
+
+        .text2 {
+            margin-left: 20px;
+        }
+
+        .text {
+            float: left;
+            color: white;
+            font-size: 15px;
+            padding: 12px;
+            cursor: pointer;
+        }
+        .text:hover{
+            background-color: #0085BB;
+        }
+
+
+        .text10 {
+            float: right;
+            margin-right: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="title"></div>
+</body>
+<script type="text/babel">
+
+
+
+//    var arr = ['编程','读书','Java教程','JavaScript教程','Python教程','Git教程','问答','赞助']
+
+   var oWrap = document.getElementById('title');
+    const text1 = <div className="text1">廖雪峰的官方网站</div>
+    const text2 = <div className="text text2">编程</div>
+    const text3 = <div className="text text3">读书</div>
+    const text4 = <div className="text text4">Java教程</div>
+    const text5 = <div className="text text5">JavaScript教程</div>
+    const text6 = <div className="text text6">Python教程</div>
+    const text7 = <div className="text text7">Git教程</div>
+    const text8 = <div className="text text8">问答</div>
+    const text9 = <div className="text text9">赞助</div>
+    const text10 = <div className="text text10">登录</div>
+
+
+    const element = (
+        <div>
+            {text1}
+            {text2}
+            {text3}
+            {text4}
+            {text5}
+            {text6}
+            {text7}
+            {text8}
+            {text9}
+            {text10}
+        </div>
+    )
+
+   ReactDOM.render(
+       element,
+       oWrap
+   )
+
+
+</script>
+</html>

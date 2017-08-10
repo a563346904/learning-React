@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react核心-->
+    <script src="node_modules/react/dist/react.js"></script>
+    <!--引入 react-dom 库-->
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <!--引入 babel预编译库-->
+    <script src="node_modules/babel-standalone/babel.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    // 以下则为 JSX 语法
+    // html 混合 js， JSX是 js的扩展
+    // 1.定义常量  element
+//    const element = <h1>hello react</h1>
+
+    //2.在JSX中  使用表达式
+    function formatName(user) {
+        return user.firstName + ' ' + user.lastName
+
+    }
+
+    const user = {
+        firstName:'美丽',
+        lastName:'齐'
+    }
+
+    //3.元素中的标签只能有一个根标签
+    //如果有多个 ， 使用 div 或 其他括起来
+    const element = (
+        <div>
+            <h1>{formatName(user)}</h1>
+            <h1>{formatName(user)}</h1>
+            <h1>{formatName(user)}</h1>
+            <h1>{formatName(user)}</h1>
+        </div>
+    )
+
+    //4.元素多个时，推荐使用小括号 括起来防止出现多分号插入问题
+
+
+    //5.JSX本身也是js  javaScript
+
+    var a = 10;
+    function returnA() {
+        return a
+    }
+
+    function returnB() {
+        return 10
+    }
+
+    function returnJSX() {
+        return element
+    }
+
+    function returnJSX1() {
+        return <div><h1>{formatName(user)}</h1>></div>
+    }
+
+    //6.JSX 的属性
+    //JSX 的属性赋值方式有两种
+    //字符串'字符串内容'
+    //变量{变量名}
+//    const attrElement = <h1 className="h1"></h1>
+    const src = 'http://pic.58pic.com/58pic/12/01/79/95h58PICe9B.jpg'
+    const imgElement = <img className="myImg" src={src}/>
+
+
+    //7.JSX代表 obj
+    //Babel 会将JSX对应转为  React.createElement
+    //参数为空  填 null
+    //imgElement 呗编译时  会形成如下效果：
+
+    var reactElement = React.createElement(
+        'img',
+        {src:src, className:'myImg'},
+        null
+
+    )
+
+    //渲染
+    //参数1 元素
+    //参数2 容器
+        ReactDOM.render(
+        reactElement,
+        document.getElementById('root')
+        )
+
+
+</script>
+
+
+</body>
+</html>
