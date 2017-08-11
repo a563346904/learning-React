@@ -1,0 +1,19 @@
+{
+  "name": "08.phantomjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01.helloWold.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "phantomjs": "^2.1.7",
+    "request": "^2.81.0",
+    "webpage": "^0.3.0",
+    "babel-standalone": "^6.25.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>知乎日报-每天3次，每次7分钟</title>
+    <script src="node_modules/react/dist/react.js"></script>
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+    <style type="text/css">
+
+        html,body{
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        /*设置一个最大的容器*/
+        #wrap {
+            border: 1px solid black;
+        }
+
+        /*头部*/
+
+        .div_wrap {
+            width: 100%;
+            background-color: white;
+            position: fixed;
+            top:0;
+            z-index: 999;
+        }
+        .head {
+            width: 960px;
+            height: 78px;
+            /*border: 1px solid black;*/
+            margin: 0 auto;
+        }
+        /*头部的logo*/
+        .head_logo {
+            width: 220px;
+            height: 78px;
+            background: url("zhiHuImg/top_logo.png") no-repeat 0 13px;
+            /*background-size: 100% ;*/
+            float: left;
+            cursor: pointer;
+        }
+
+        .head_App,.head_content{
+            width: 140px;
+            height: 78px;
+            text-align: center;
+            /*line-height: 78px;*/
+            float: right;
+            cursor: pointer;
+        }
+        .head_App>div{
+            width: 120px;
+            height: 32px;
+            background-color: #EEF9FF;
+            color: #008AF5;
+            line-height: 32px;
+            margin-top: 25px;
+        }
+        .head_content>div{
+            width: 120px;
+            height: 32px;
+           line-height: 32px;
+            margin-top: 25px;
+        }
+
+        /*蓝色 大图部分*/
+        .title {
+            width: 100%;
+            height: 460px;
+            margin-top: 78px;
+            background: #008bed;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .titleWrap {
+            width: 960px;
+            /*border: 1px solid black;*/
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sample_wrap {
+            position: absolute;
+            width: 409px;
+            height: 448px;
+            left: 31px;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .load_wrap {
+            display: inline-block;
+            vertical-align: top;
+            width: 392px;
+            padding: 100px 0 0 0;
+            margin-right: 22px;
+            text-align: left;
+        }
+        .load_wrap>h2{
+            font-size: 0;
+            font-weight: bold;
+            height: 50px;
+            line-height: 40px;
+            color: transparent;
+            margin: 0 -5px 0 -5px;
+            background: transparent url(zhiHuImg/slogan.png) no-repeat 0 0;
+            text-indent: -150%;
+        }
+
+        .title_info {
+            font-size: 16px;
+            color: #99d1f8;
+            line-height: 26px;
+            height: 100px;
+        }
+        .title_erWeiMa{
+            float: left;
+            width: 145px;
+            height: 153px;
+            background: #fff;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .title_erWeiMa>img{
+            margin: 9px 0 0 5px;
+        }
+
+        .downLoadLink {
+            width: 194px;
+            height: 152px;
+            margin: 0 0 0 198px;
+            /*border: 1px solid black;*/
+        }
+
+        .downloadApp {
+            width: 194px;
+            display: block;
+            /*height: 64px;*/
+            background: #fff;
+            border-radius: 3px;
+            vertical-align: top;
+            text-align: left;
+            cursor: pointer;
+        }
+/*IOS下载*/
+        .downloadIOS {
+            margin-bottom: 24px;
+        }
+
+        .downloadIOS:hover{
+            background-color: #DDF3FF;
+        }
+
+        .downloadIOS>span{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 64px;
+            font-size: 22px;
+            text-align: center;
+            width: 108px;
+            font-weight: normal;
+            color: #39442e;
+        }
+
+        .iphpne_icon {
+            vertical-align: top;
+            display: inline-block;
+            margin: 8px 0 0 5px;
+            width: 50px;
+            height: 50px;
+            background: transparent url(zhiHuImg/iphone_logo.png) 0 0;
+        }
+/*安卓下载*/
+        .android_icon {
+            vertical-align: top;
+            display: inline-block;
+            margin: 8px 0 0 5px;
+            width: 50px;
+            height: 50px;
+            background: transparent url(zhiHuImg/android_logo.png) 0 0;
+        }
+
+        .android_adress1>span{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 64px;
+            font-size: 22px;
+            text-align: center;
+            width: 109px;
+            font-weight: normal;
+            color: #39442e;
+        }
+
+        .android_adress1 {
+            width: 194px;
+            height: 64px;
+        }
+        .android_adress1:hover{
+            background-color: #DDF3FF;
+        }
+        /*给下载的下拉菜单添加样式*/
+        .android_adress_add {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+        .android_adress_add>li{
+            width: 194px;
+            display: block;
+            height: 64px;
+            background: #fff;
+            border-radius: 3px;
+            vertical-align: top;
+            text-align: left;
+            cursor: pointer;
+        }
+
+
+        .android_adress_add>li:hover{
+            background-color: #DDF3FF;
+        }
+        .android_adress_add>li:nth-child(1)>i{
+            vertical-align: top;
+            display: inline-block;
+            margin: 8px 0 0 5px;
+            width: 50px;
+            height: 50px;
+            background: transparent url(zhiHuImg/icon_wandoujia.png) 0 0;
+        }
+        .android_adress_add>li:nth-child(1)>span{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 64px;
+            font-size: 22px;
+            text-align: center;
+            width: 109px;
+            font-weight: normal;
+            color: #39442e;
+        }
+        .android_adress_add>li:nth-child(2)>i{
+            vertical-align: top;
+            display: inline-block;
+            margin: 8px 0 0 5px;
+            width: 50px;
+            height: 50px;
+            background: transparent url(zhiHuImg/icon_91market.png) 0 0;
+        }
+        .android_adress_add>li:nth-child(2)>span{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 64px;
+            font-size: 22px;
+            text-align: center;
+            width: 109px;
+            font-weight: normal;
+            color: #39442e;
+        }
+        .android_adress_add>li:nth-child(3)>i{
+            vertical-align: top;
+            display: inline-block;
+            margin: 8px 0 0 5px;
+            width: 50px;
+            height: 50px;
+            background: transparent url(zhiHuImg/icon_360market.png) 0 0;
+        }
+        .android_adress_add>li:nth-child(3)>span{
+            vertical-align: top;
+            display: inline-block;
+            line-height: 64px;
+            font-size: 22px;
+            text-align: center;
+            width: 109px;
+            font-weight: normal;
+            color: #39442e;
+        }
+
+        /*下载栏添加hover*/
+        .downloadAddrio:hover .android_adress_add{
+            display: block;
+        }
+
+        /*到了主体部分啦！*/
+        .main_content {
+            padding-bottom: 30px;
+            /*border: 1px solid black;*/
+        }
+
+        /*给设置960宽  使其居中*/
+        .container_body {
+            margin: 0 auto;
+            width: 960px;
+        }
+
+        .section_head {
+            padding: 44px 0 31px;
+        }
+        .section_head>div:nth-child(1){
+            font-size: 25px;
+            color: #333333;
+            line-height: 25px;
+            height: 25px;
+            overflow: hidden;
+            float: left;
+        }
+        .section_head>div:nth-child(2){
+            float: right;
+            color: #ccc;
+            font-size: 25px;
+            line-height: 25px;
+        }
+
+        .row {
+            width: 960px;
+            margin: 0 auto;
+            padding: 0;
+            margin: 0 -15px;
+        }
+
+        .all_row {
+            width: 32%;
+            display: inline-block;
+        }
+
+        .container_wrap {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            padding: 20px;
+            background: #fff;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .box>img{
+            display: block;
+            max-width: 100%;
+            height: 260px;
+            opacity: 1;
+            margin-bottom: 1em;
+        }
+
+        .special {
+            margin: 0 19px;
+        }
+
+        .readMore {
+            font-size: 20px;
+            background: #e8eef2;
+            border-radius: 3px;
+            display: block;
+            text-align: center;
+            height: 62px;
+            line-height: 62px;
+            margin: 30px 0 0 0;
+        }
+        .readMore>a{
+            color: #15527b;
+            text-decoration: none;
+        }
+
+        /*底部*/
+        .footer {
+            color: #666;
+            background: #e5e5e5;
+            height: 265px;
+        }
+
+        .footer_wrap {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        .footer_infor {
+            padding-top: 30px;
+            float: left;
+        }
+        .footer_infor>p{
+            font-size: 14px;
+        }
+
+        .footer_qr {
+            float: right;
+            background: #e5e5e5;
+            padding-top: 25px;
+        }
+
+        .footer_downloadTxt {
+            padding-top: 13px;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap"></div>
+
+</body>
+<script type="text/babel">
+    var arr_text = ['小事 · 爸爸去世之后','摇滚青年陈佩斯，奇怪吗？其实一点都不奇怪','一盘酸辣爽口又劲道的凉面，夏天恨不得每天都拌来吃',
+        '小时候去新华书店花 10 块钱买的游戏光盘，竟然是「伪正版」','环游一次世界要花多少钱？73 万，这是我们帮你算出的账','遣返「格斗孤儿」回凉山，等待他们的只有毒品、艾滋和贫穷',
+        '这个玩钢镚儿小游戏，玩着玩着就解释了一个社会问题','国内最常见的普通楼房，原来是「社会主义审美」','别再问年轻人凭什么不加班了，加班就等于努力工作吗？',
+        '为什么各种宗教都有那么多禁忌？','大误 · 可能是最适合中国人减肥的文章','彩虹有没有倒影？','多少级的地震可以撼动全球？','朋友圈一篇「癌症最强科普文」传得够广，但别全信了',
+        '终于可以回答「生吃带鱼是什么样的感受」了','《权力的游戏》中的灰鳞病现实中真的存在吗？','「在职场中交不到朋友才正常」，这话其实没错','「香港爆发史无前例大流感，超过 SARS」……等等，别慌',
+        '瞎扯 · 如何正确地吐槽','这里是广告 · 将巴萨精髓注入手机设计是一种怎样的体验？','小事 · 但愿人长久，千里共饺子','真奇怪，有些电影你没那么喜欢却一看再看',
+        '「儿子你看，这就是爸爸的青春、热情和梦想」','18 年前，一场雪崩，他们三人中有两人没能活着回来','几个简单实用的下厨小技巧，下次做菜没那么难了','发工资不打银行卡直接付现金，老板你就是想逃税',
+        '你的痛苦，究竟是谁的错？','有没有病毒可能对人体「有益」？','刚刚我想……干什么来着？你有过这种「断片」时刻吗？','这是名著啊，但我怎么看出了自编自导自演小黄片的感觉']
+    var arrImg = []
+    for(var i = 0;i<29;i++){
+        arrImg.push('zhiHuImg/'+i+'.jpg')
+    }
+    console.log(arrImg)
+
+//头部
+    class Header extends React.Component{
+        render(){
+            return (
+                <div className="div_wrap">
+                    <div className="head">
+                        <div className="head_logo"></div>
+                        <div className="head_content"><div>浏览内容</div></div>
+                        <div className="head_App"><div>App 下载</div></div>
+                    </div>
+                </div>
+
+            )
+        }
+    }
+//颈部
+    class Title extends React.Component{
+        render(){
+            return(
+                <div className="title">
+                    <div className="titleWrap">
+                        <div className="sample_wrap"><img src="zhiHuImg/phone_sample.png" alt=""/></div>
+                        <div className="load_wrap">
+                            <h2>每天三次 每次七分钟</h2>
+                            <div className="title_info">在中国，资讯类移动应用的人均阅读时长是 5 分钟，而在知乎日报，这个数字是 21。</div>
+                            <div className="title_erWeiMa"><img src="zhiHuImg/qr_top2.png" alt=""/></div>
+                            <div className="downLoadLink">
+                                <div className="downloadIOS downloadApp">
+                                    <i className="iphpne_icon"></i>
+                                    <span>IOS 版</span>
+                                </div>
+                                <div className="downloadAddrio downloadApp">
+                                    <div className="android_adress1">
+                                        <i className="android_icon"></i>
+                                        <span>Android 版</span>
+                                    </div>
+                                    <ul className="android_adress_add">
+                                        <li>
+                                            <i></i>
+                                            <span>豌豆荚</span>
+                                        </li>
+                                        <li>
+                                            <i></i>
+                                            <span>91 市场</span>
+                                        </li>
+                                        <li>
+                                            <i></i>
+                                            <span>360 市场</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
+//主体部分
+    class Body extends React.Component{
+        render(){
+            var arr = []
+            var text1 = [];
+            for (let i = 0;i<10;i++){
+               arr.push( <div className="container_wrap">
+                    <div className="box">
+                        <img src={arrImg[i]} alt=""/>
+                        <span>{arr_text[i]}</span>
+                    </div>
+                </div>
+               )
+            }
+            var arr2 = []
+            for (let i = 10;i<20;i++){
+                arr2.push( <div className="container_wrap">
+                            <div className="box">
+                                <img src={arrImg[i]} alt=""/>
+                                <span>{arr_text[i]}</span>
+                            </div>
+                        </div>
+                )
+            }
+
+            var arr3 = []
+            for (let i = 20;i<30;i++){
+                arr3.push( <div className="container_wrap">
+                            <div className="box">
+                                <img src={arrImg[i]} alt=""/>
+                                <span>{arr_text[i]}</span>
+                            </div>
+                        </div>
+                )
+            }
+
+
+
+
+            return(
+                <div className="main_content">
+                    <div className="container_body">
+                        <div className="section_head">
+                            <div>浏览内容</div>
+                            <div>最新内容</div>
+                        </div>
+                        <div className="row">
+                            <div className="row1 all_row">
+                                {arr}
+                            </div>
+                            <div className="row2 all_row special">
+                                {arr2}
+                            </div>
+                            <div className="row3 all_row">
+                                {arr3}
+                            </div>
+                        </div>
+                        <div className="readMore"><a href="">更多精彩内容可在知乎日报应用中查看</a></div>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    //底部
+    class Footer extends React.Component{
+        render(){
+            return(
+                    <div className="footer">
+                        <div className="footer_wrap">
+                            <div className="footer_infor">
+                                <p>知乎日报是一款拥有千万用户的资讯类客户端，每日提供来自知乎社区的精选问答，还有国内一流媒体的专栏特稿。</p>
+                                <p>主题日报包括动漫、设计、大公司、游戏、财经、电影、电子音乐、互联网安全等丰富内容，为业内人和资深爱好<br/>
+                                    者推荐各领域最精彩文章，满足高质量阅读需求。
+                                </p>
+                                <p>在知乎日报，告别浮躁，重获阅读的愉悦。</p>
+                                <p>© 2017 知乎</p>
+                            </div>
+                            <div className="footer_qr">
+                                <div className="frame_qr"><img src="zhiHuImg/bottom.png" alt=""/></div>
+                                <div className="footer_downloadTxt">请扫描下载客户端</div>
+                            </div>
+                        </div>
+                    </div>
+            )
+        }
+    }
+
+    class Wrap extends React.Component{
+        render(){
+            return (
+                    <div>
+                        <Header/>
+                        <Title/>
+                        <Body/>
+                        <Footer/>
+                    </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(
+        <Wrap/>,
+        document.getElementById('wrap')
+    )
+
+
+
+
+</script>
+</html>
